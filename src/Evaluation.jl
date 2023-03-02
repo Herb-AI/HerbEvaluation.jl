@@ -10,7 +10,8 @@ export
     interpret,
     evaluate_examples
     evaluate_all_examples,
-    evaluate_with_input
+    evaluate_with_input,
+    ratio_correct_examples
 
 
 end # module

@@ -24,6 +24,21 @@ function evaluate_examples(tab::SymbolTable, expr::Any, examples::Vector{Data.Ex
     return true
 end
 
+"""
+Calculates the ratio between correct outputs and the total number of examples.
+"""
+function ratio_correct_examples(tab::SymbolTable, expr::Any, examples::Vector{Data.Example})::Float64
+    wrong = 0
+    total_number = length(filter(e -> e isa IOExample, examples))
+    for example ∈ filter(e -> e isa IOExample, examples)
+        outcome = evaluate_with_input(tab, expr, example.in)
+        if example.out ≠ outcome
+            wrong += 1
+        end
+    end
+    return (total_number - wrong) * 1.0 / total_number
+end
+
 
 """
 Interprets an expression or symbol with the given symboltable and the input.
